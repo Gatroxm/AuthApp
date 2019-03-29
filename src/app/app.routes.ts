@@ -1,22 +1,20 @@
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
-import { PreciosComponent } from './components/precios/precios.component';
-import { ProtegidaComponent } from './components/protegida/protegida.component';
-// import { Name2Component } from './';
-// import { Name3Component } from './';
-// import { Name4Component } from './';
-// import { PageNotFoundComponent } from './';
+import { HomeComponent } from "./components/home/home.component";
+import { PreciosComponent } from "./components/precios/precios.component";
+import { ProtegidaComponent } from "./components/protegida/protegida.component";
 
-const APP_ROUTES: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: 'precios', component: PreciosComponent },
-    { path: 'protegida', component: ProtegidaComponent },
-    // { path: 'path2', component: Name2Component },
-    // { path: 'path3', component: Name3Component },
-    // { path: 'path4', component: Name4Component },
-    // { path: '**', component: PageNotFoundComponent },
+import { AuthGuardService } from "./services/auth-guard.service";
 
+const app_routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'precios', component: PreciosComponent },
+  {
+    path: 'protegida',
+    component: ProtegidaComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
-export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES);
+export const APP_ROUTING = RouterModule.forRoot(app_routes);
